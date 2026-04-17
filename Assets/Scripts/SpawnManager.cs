@@ -3,7 +3,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public Transform spawnPoint;
-    public GameObject obstaclePrefab;
+    public ObstacleObjectPool pool;
 
     void Start()
     {
@@ -12,18 +12,21 @@ public class SpawnManager : MonoBehaviour
 
     void Spawn()
     {
-        // 1.18 stop moving left when the game is over
         GameObject player = GameObject.Find("Player");
         bool isGameOver = player.GetComponent<PlayerController>().gameOver;
+
         if (isGameOver)
         {
             return;
         }
 
-        Instantiate(
-            obstaclePrefab,
-            spawnPoint.position,
-            obstaclePrefab.transform.rotation
-        );
+       
+        int randomType = Random.Range(1, 4);
+
+       
+        GameObject obstacle = pool.Acquire(randomType);
+
+        
+        obstacle.transform.position = spawnPoint.position;
     }
 }

@@ -20,13 +20,15 @@ public class SpawnManager : MonoBehaviour
             return;
         }
 
-       
         int randomType = Random.Range(1, 4);
 
-       
         GameObject obstacle = pool.Acquire(randomType);
 
         
+        Obstacle obs = obstacle.GetComponent<Obstacle>();
+        obs.pool = pool;
+        obs.type = randomType;
+
         obstacle.transform.position = spawnPoint.position;
     }
 }

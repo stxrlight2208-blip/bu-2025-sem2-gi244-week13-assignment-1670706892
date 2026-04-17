@@ -16,4 +16,11 @@ public class MoveLeft : MonoBehaviour
 
         transform.Translate(Vector3.left * speed * Time.deltaTime);
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerController>().gameOver = true;
+        }
+    }
 }
